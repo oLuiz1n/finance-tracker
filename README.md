@@ -57,9 +57,10 @@ Além do controle financeiro, o projeto também foi pensado como prática de des
 
 ## 📷 Preview do projeto
 
-```md
+---
+
 ![Dashboard](./assets/DashboardFinance.jpg)
-```
+
 
 ---
 
