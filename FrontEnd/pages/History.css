@@ -1,0 +1,49 @@
+.cards-history {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.cards-unique{
+    height: auto;
+    min-height: max-content;
+    background-color: #161b2e; 
+    padding: 15px;
+    border-radius: 8px;
+    flex: 1 1 220px; 
+    max-width: 300px;
+}
+
+.cards-history p{
+    text-align: left;
+    font-size: 13px; 
+    margin: 6px 0; 
+}
+
+.cards-history button{
+    background-color: transparent;
+    min-height: 30px;
+    min-width: 100px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 1px 1px 9px rgb(176, 125, 243);
+    margin-bottom: 15px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    padding: 8px;
+    transition: 0.3s;
+    margin-left: 28px;
+    margin-top: 8px;
+    align-items: center;
+}
+
+.cards-history button:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+    background-color: #7c3aed;
+}
+
+.cards-history button:active{
+    background-color: #7c3aed;
+}
