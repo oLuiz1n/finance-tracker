@@ -69,7 +69,7 @@ Além do controle financeiro, o projeto também foi pensado como prática de des
 ### 1️⃣ Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/finance-tracker.git
+git clone https://github.com/oLuiz1n/finance-tracker.git
 ```
 
 ### 2️⃣ Entre na pasta do projeto
@@ -122,7 +122,7 @@ npm start
 
 Desenvolvido por **Luiz Gustavo de Oliveira**.
 
-* LinkedIn: [https://www.linkedin.com/in/luiz-gustavo-de-oliveira-54a3a72b2/](https://www.linkedin.com/)
-* GitHub: [https://github.com/oLuiz1n](https://github.com/)
+* LinkedIn: [https://www.linkedin.com/](https://www.linkedin.com/in/luiz-gustavo-de-oliveira-54a3a72b2/)
+* GitHub: [https://github.com/](https://github.com/oLuiz1n)
 
 ---
