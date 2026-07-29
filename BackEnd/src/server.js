@@ -119,7 +119,6 @@ app.get('/transactions/expenseByCategory/perMonth', async (req, res) => {
                 WHERE type = 'expense'
                 GROUP BY category, month;`
             );
-
             return res.json(resultado);
         };
 
@@ -132,7 +131,14 @@ app.get('/transactions/expenseByCategory/perMonth', async (req, res) => {
             );
         
         if ( resultado.length === 0) {
-            return res.json({ message: 'Nenhum gasto encontrado para este mês' });
+            const [zerado] = await pool.query(`SELECT category, sum(amount) AS total, DATE_FORMAT(transaction_date, '%Y-%m') AS month
+                FROM transactions
+                WHERE type = 'expense'
+                AND DATE_FORMAT(transaction_date, '%Y-%m') = ?
+                GROUP BY category;`,
+                [month]
+            );
+            return res.json(zerado);
         };
 
         return res.json(resultado);
@@ -276,6 +282,55 @@ app.get('/transactions/month-comparison', async (req, res) => {
             );
 
             return res.json(resultado);
+    } catch (error) {
+        res.status(500).json({ error: error.message});
+    }
+});
+
+app.get('/transactions/report', async (req, res) => {
+    try {
+        
+        const { month } = req.query;
+
+        const [
+            [saldoMensal],
+            [receita],
+            [despesas],
+            [transacoes],
+            [topGastos],
+            [topRecebimentos]
+        ] = await Promise.all([
+            pool.query(`SELECT COALESCE(SUM(CASE WHEN type = 'income' THEN amount ELSE -amount END), 0) AS saldo FROM transactions
+                        WHERE date_format(transaction_date, '%Y-%m') = ?`, [month]),
+            pool.query(`SELECT COALESCE(SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END), 0) AS totalIncome FROM transactions
+                        WHERE date_format(transaction_date, '%Y-%m') = ?;`, [month]),
+            pool.query(`SELECT COALESCE(SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END), 0) AS totalExpense FROM transactions
+                        WHERE date_format(transaction_date, '%Y-%m') = ?;`, [month]),
+            pool.query(`SELECT * FROM transactions
+                        WHERE date_format(transaction_date, '%Y-%m') = ?
+                        ORDER BY transaction_date DESC;`, [month]),
+            pool.query(`SELECT category, COALESCE(sum(amount), 0) AS total
+                        FROM transactions
+                        WHERE type = 'expense'
+                        AND date_format(transaction_date, '%Y-%m') = ?
+                        GROUP BY category 
+                        ORDER BY total DESC limit 5;`, [month]),
+            pool.query(`SELECT category, COALESCE(sum(amount), 0) AS total
+                        FROM transactions
+                        WHERE type = 'income'
+                        AND date_format(transaction_date, '%Y-%m') = ?
+                        GROUP BY category 
+                        ORDER BY total DESC limit 5;`, [month])
+        ])
+
+            return res.json({
+                saldoMensal,
+                receita: receita[0].totalIncome,
+                despesas: despesas[0].totalExpense,
+                transacoes,
+                topGastos,
+                topRecebimentos
+            });
     } catch (error) {
         res.status(500).json({ error: error.message});
     }
