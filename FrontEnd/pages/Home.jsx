@@ -10,6 +10,7 @@ import InsightExpenseDay from "../components/insightExpenseDay/InsightExpenseDay
 import InsightAverageMonth from "../components/insightAverageMonth/InsightAverageMonth.jsx";
 import InsightComparison from "../components/insightComparison/InsightComparison.jsx";
 import InsightIncomeRanking from "../components/insightIncomeRanking/InsightIncomeRanking.jsx";
+import GenerateReport from "../components/generateReport/generateReport.jsx";
 import "./Home.css";
 
 function Home() {
@@ -85,6 +86,7 @@ function Home() {
       <div className="head">
         <NewTransaction />
         <button className="btn-history" onClick={() => navigate("/History")}> Historico </button>
+        <GenerateReport />
       </div>
       <div className="interface">
       <div className="cards-insight">

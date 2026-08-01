@@ -293,7 +293,7 @@ app.get('/transactions/report', async (req, res) => {
         const { month } = req.query;
 
         const [
-            [saldoMensal],
+            [saldo],
             [receita],
             [despesas],
             [transacoes],
@@ -324,13 +324,23 @@ app.get('/transactions/report', async (req, res) => {
         ])
 
             return res.json({
-                saldoMensal,
+                saldo: saldo[0].saldo,
                 receita: receita[0].totalIncome,
                 despesas: despesas[0].totalExpense,
                 transacoes,
                 topGastos,
                 topRecebimentos
             });
+    } catch (error) {
+        res.status(500).json({ error: error.message});
+    }
+});
+
+app.get('/transactions/months', async (req, res) => {
+    try {
+        const[resultado] = await pool.query(`SELECT DISTINCT date_format(transaction_date, '%Y-%m') AS month FROM transactions ORDER BY month ASC;`);
+
+        return res.json(resultado);
     } catch (error) {
         res.status(500).json({ error: error.message});
     }
