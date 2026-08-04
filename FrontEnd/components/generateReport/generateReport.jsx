@@ -5,8 +5,24 @@ const GenerateReport = () => {
     const [dados, setDados] = useState([]);
     const [mesEscolhido, setMesEscolhido] = useState("");
 
-    function gerarRelatorio () {
-            
+    const gerarRelatorio = async () => {
+            try {
+                const response = await fetch(`${import.meta.env.VITE_API_URIP}/generate-report`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        mes: mesEscolhido
+                    })
+                });
+
+                const jsonResponse = await response.json();
+                
+                console.log(jsonResponse)
+            } catch (error) {
+                console.log("Erro ao gerar relatório:", error);
+            }
         };
 
     const handleMesChange = (e) => {
