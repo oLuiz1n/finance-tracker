@@ -17,9 +17,20 @@ const GenerateReport = () => {
                     })
                 });
 
-                const jsonResponse = await response.json();
-                
-                console.log(jsonResponse)
+                const pdf = await response.blob();
+
+                const urlPDF =  window.URL.createObjectURL(pdf);
+
+                const link = document.createElement("a");
+
+                link.href = urlPDF;
+                link.download = `RelatorioFinanceiro${mesEscolhido}.pdf`;
+
+                document.body.appendChild(link);
+
+                link.click();
+                link.remove();
+
             } catch (error) {
                 console.log("Erro ao gerar relatório:", error);
             }
