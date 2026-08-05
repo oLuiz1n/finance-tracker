@@ -62,6 +62,7 @@ input[type=number]::-webkit-outer-spin-button {
     outline: none;
     color: white;
     appearance: none;
+    margin-bottom: 15px;
 }
 
 .form select:focus{
@@ -74,6 +75,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .form button{
+    display: flex;
+    justify-self: center;
     background-color: #7c3aed;
     min-height: 30px;
     min-width: 160px;
@@ -316,4 +319,21 @@ input[type=number]::-webkit-outer-spin-button {
 
 .trend-down {
   color: #f87171 !important;
+}
+
+.spinner{
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    animation: girar .8s linear infinite;
+}
+
+@keyframes girar{
+    to{
+        transform: rotate(360deg);
+    }
 }

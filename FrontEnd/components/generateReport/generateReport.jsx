@@ -4,8 +4,19 @@ import { useState } from "react";
 const GenerateReport = () => {
     const [dados, setDados] = useState([]);
     const [mesEscolhido, setMesEscolhido] = useState("");
+    const [erro, setErro] = useState("");
+    const [carregando, setCarregando] = useState(false);
 
     const gerarRelatorio = async () => {
+        if(!mesEscolhido){
+            alert("Selecione um mes para gerar o relatorio")
+            setErro("Selecione um mes para gerar o relatorio");
+            return;
+        }
+
+        setErro("");
+        setCarregando(true);
+
             try {
                 const response = await fetch(`${import.meta.env.VITE_API_URIP}/generate-report`, {
                     method: "POST",
@@ -33,6 +44,8 @@ const GenerateReport = () => {
 
             } catch (error) {
                 console.log("Erro ao gerar relatório:", error);
+            } finally {
+                setCarregando(false);
             }
         };
 
@@ -60,7 +73,7 @@ const GenerateReport = () => {
     }, []);
 
     return (
-        <div>
+        <div className="form">
         <select value={mesEscolhido} onChange={handleMesChange}>
             <option value="">Selecione o mes</option>
             {dados.map((item) => (
@@ -69,7 +82,16 @@ const GenerateReport = () => {
                 </option>
             ))}
         </select>
-        <button onClick={gerarRelatorio}> Gerar Relatorio</button>
+        <button onClick={gerarRelatorio} disabled={carregando}> 
+            {carregando ? (
+                <>
+                    <span className="spinner"></span>
+                    Gerando...
+                </>
+            ) : (
+                "Gerar Relatorio"
+            )} 
+        </button>
         </div>
     );
 };
