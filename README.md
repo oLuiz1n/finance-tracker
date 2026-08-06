@@ -27,6 +27,34 @@ Além do controle financeiro, o projeto também foi pensado como prática de des
 
 ---
 
+## 🚀 Funcionalidades novas
+
+### 📊 Geração de Relatórios Financeiros com IA
+
+O sistema permite gerar relatórios financeiros personalizados a partir das transações cadastradas pelo usuário.
+
+O usuário seleciona um mês específico e a aplicação:
+
+1. Busca os dados financeiros daquele período;
+2. Calcula informações como:
+   - Receita total;
+   - Despesas totais;
+   - Saldo do período;
+   - Distribuição de gastos por categoria;
+   - Taxa de economia;
+3. Envia os dados para uma IA gerar uma análise financeira;
+4. Converte o relatório gerado em um arquivo PDF.
+
+O relatório contém:
+
+- Resumo financeiro do mês;
+- Análise das receitas;
+- Análise das despesas;
+- Principais categorias de gastos;
+- Recomendações financeiras personalizadas.
+
+---
+
 ## 🛠️ Tecnologias utilizadas
 
 ### Front-end
